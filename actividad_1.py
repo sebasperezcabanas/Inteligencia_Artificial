@@ -2,45 +2,27 @@ from asyncio.windows_events import NULL
 import numpy as np
 import matplotlib.pyplot as plt
 
-datos_1 = np.random.randint(low=0,high=50,size=16).reshape(8,2)
-datos_2 = np.random.randint(low=45,high=75,size=16).reshape(8,2)
-
-print("Datos 1:\n", datos_1)
-print("Datos 2:\n", datos_2)
-
-datos_total = np.concatenate((datos_1,datos_2))
-
-X = datos_total.transpose()[0]
-
-Y = datos_total.transpose()[1]
-
-plt.figure()
-plt.plot(X, Y,'.k')
-plt.scatter(X,Y, marker="s", s=50, c=Y, cmap="RdPu")
-plt.title("Gráfico")
-plt.show()
-
-centros = np.random.randint(low=0,high=75,size=4).reshape(2,2)
 
 # k = cantidad de clústers
 # centros = matriz de centros de clúster
 # datos = matriz de datos
 def k_means(k, centros, datos):
     dist_cluster = []
-    labels = np.array([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1])
-    labels_ant = np.array([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
+    labels = []
+    centros_ant = np.array([[1,1],[1,1]]).reshape(2, 2)
     j = 0
 
-    while (labels.all() != labels_ant.all()):
+    while (not(np.array_equal(centros, centros_ant))):
         j += 1
         dist_cluster.clear()
         for i in range(datos.shape[0]):
             dist_cluster.append(np.linalg.norm(datos[i]-centros[0]))
             dist_cluster.append(np.linalg.norm(datos[i]-centros[1]))
-        dista = np.array(dist_cluster).reshape(16,2)
-        labels_ant = labels.copy()
+        dista = np.array(dist_cluster).reshape(32,2)
         labels = np.argmin(dista, axis=1)
-        centros = [[0,0],[0,0]]
+        
+        centros_ant = centros.copy()
+        centros = np.array([[0,0],[0,0]])
         cant_c1 = 0
         cant_c2 = 0
         for i in range(labels.shape[0]):
@@ -50,13 +32,46 @@ def k_means(k, centros, datos):
             else:
                 centros[1] += datos[i]
                 cant_c2 += 1
-        centros[0] = centros[0]/cant_c1
-        centros[1] = centros[1]/cant_c2
-    return dista, labels, j
+        
+        if cant_c1 != 0:
+            centros[0] = centros[0]/cant_c1
+        if cant_c2 != 0:
+            centros[1] = centros[1]/cant_c2
+    
+    return dista, labels, centros, j
 
-a,b,c = k_means(2,centros,datos_total)
-print(a)
-print("\n")
-print(b)
-print("\n")
-print(f'Iteraciones: {c}')
+
+datos_1 = np.random.randint(low=0,high=35,size=32).reshape(16,2)
+datos_2 = np.random.randint(low=25,high=50,size=32).reshape(16,2)
+datos_total = np.concatenate((datos_1,datos_2))
+
+print("Datos totales:\n", datos_total)
+
+centrosIni = np.array([[0,0],[0,0]]).reshape(2, 2)
+distancias, labels, centros, iteraciones = k_means(2, centrosIni, datos_total)
+
+print("\nDistancias al centro de cluster:\n", distancias)
+print("\nCentros de cluster:\n", centros)
+print("\nLabels:\n", labels)
+print(f'\nIteraciones: {iteraciones}')
+
+#----------------------------- GRAFICO -----------------------------
+
+X1 = []; X2 = []; Y1 = []; Y2 = []
+for i in range(labels.shape[0]):
+    if labels[i] == 0:
+        X1.append(datos_total[i][0])
+        Y1.append(datos_total[i][1]) 
+    else:
+        X2.append(datos_total[i][0])
+        Y2.append(datos_total[i][1])
+
+W = centros.transpose()[0]
+Z = centros.transpose()[1]
+
+plt.figure()
+plt.plot(X1, Y1, color='green', marker='o', linestyle='')
+plt.plot(X2, Y2, color='blue', marker='o', linestyle='')
+plt.plot(W, Z, 'r+')
+plt.title("Gráfico")
+plt.show()
