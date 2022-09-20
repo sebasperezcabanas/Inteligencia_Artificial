@@ -15,8 +15,8 @@ mat = df.to_numpy()
 #plt.plot(X, Y, color="darkmagenta", marker='o', linestyle='', label='_nolegend_')
 #plt.show()
 
-colores = ["hotpink","tomato","seagreen"]
-colores_in = ["lightpink","lightsalmon","lightgreen"]
+colores_in = ["hotpink","tomato","seagreen"]
+colores = ["lightpink","lightsalmon","lightgreen"]
 
 N = 3
 km = KMeans(N)
@@ -50,7 +50,8 @@ for gp in grupos:
 maximo = np.array([])
 for gp in grupos:
     twenty_percent = int(counts[gp]/5)
-    for i in range(twenty_percent):
+    rango = counts[gp] - twenty_percent
+    for i in range(rango):
         maximo = np.argmax(intracluster_distance, axis=0)
         intracluster_distance[maximo[gp]][gp] = 0
         etiquetapuntos[maximo[gp]] = 10
