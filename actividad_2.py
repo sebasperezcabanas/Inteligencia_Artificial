@@ -10,8 +10,8 @@ Y = df[['Y']]
 
 mat = df.to_numpy()
 
-#plt.figure()
-#plt.title("Actividad 2")
+plt.figure()
+plt.title("Actividad 2")
 #plt.plot(X, Y, color="darkmagenta", marker='o', linestyle='', label='_nolegend_')
 #plt.show()
 
@@ -27,16 +27,15 @@ centros = km.cluster_centers_
 
 intracluster_distance = np.zeros(mat.shape[0]*N).reshape(mat.shape[0],N)
 
+
 for gp in grupos:
     for i in range(mat.shape[0]):
         if etiquetapuntos[i] == gp:
             intracluster_distance[i][gp]= np.linalg.norm(mat[i]-centros[gp])
 
-"""
-print(intracluster_distance)
-maximo = np.argmax(intracluster_distance, axis=0)
-print(maximo)
-"""
+
+print(f"Distancia intraclúster promedio: {np.mean(intracluster_distance, 0)}")
+
 for gp in grupos:
     x = []
     y = []
@@ -55,7 +54,8 @@ for gp in grupos:
         maximo = np.argmax(intracluster_distance, axis=0)
         intracluster_distance[maximo[gp]][gp] = 0
         etiquetapuntos[maximo[gp]] = 10
-         
+
+print(f"Distancia intraclúster promedio con el 20% de los datos: {np.mean(intracluster_distance, 0)}")         
 
 for gp in grupos:
     x = []
