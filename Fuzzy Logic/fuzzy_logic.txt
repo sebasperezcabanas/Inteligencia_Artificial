@@ -1,0 +1,114 @@
+
+p(x) = Si la presión sistólica es normal y la presión diastólica es normal entonces el paciente tiene la presión normal.
+
+pS(x) = La presión sistólica es normal.
+
+pD(x) = La presión diastólica es normal.
+
+p(x) = pS(x) ∧ pD(x)
+
+Árbol básico de proposiciones:
+
+                     p
+                   -----
+                  |  ∧  |
+                   -----
+             _______| |_______
+            |                 |
+            ∨                 ∨
+         ------             ------
+        |  pS  |           |  pD  |
+         ------             ------   
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+q(x) = Si la presión sistólica es elevada y la presión diastólica es normal entonces el paciente tiene la presión elevada.
+
+qS(x) = La presión sistólica es elevada.
+
+qD(x) = La presión diastólica es normal.
+
+q(x) = qS(x) ∧ qD(x)
+
+Árbol básico de proposiciones:
+
+                     q
+                   -----
+                  |  ∧  |
+                   -----
+             _______| |_______
+            |                 |
+            ∨                 ∨
+         ------             ------
+        |  qS  |           |  qD  |
+         ------             ------   
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+r(x) = Si la presión sistólica es muy elevada o la presión diastólica es elevada entonces el paciente tiene la presión alta.
+
+rS(x) = La presión sistólica es muy elevada.
+
+rD(x) = La presión diastólica es elevada.
+
+r(x) = rS(x) ∧ rD(x)
+
+Árbol básico de proposiciones:
+
+                     r
+                   -----
+                  |  ∨  |
+                   -----
+             _______| |_______
+            |                 |
+            ∨                 ∨
+         ------             ------
+        |  rS  |           |  rD  |
+         ------             ------   
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+s(x) = Si la presión sistólica es alta o la presión diastólica es muy elevada entonces el paciente tiene hipertensión grado 2. 
+
+sS(x) = La presión sistólica es alta.
+
+sD(x) = La presión diastólica es muy elevada.
+
+s(x) = sS(x) ∧ sD(x)
+
+Árbol básico de proposiciones:
+
+                     s
+                   -----
+                  |  ∨  |
+                   -----
+             _______| |_______
+            |                 |
+            ∨                 ∨
+         ------             ------
+        |  sS  |           |  sD  |
+         ------             ------   
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+t(x) = Si la presión sistólica es muy alta y la presión diastólica es alta o la presión sistólica es muy alta o la presión diastólica es alta
+        entonces el paciente tiene crisis hipertensiva.
+
+tS(x) = La presión sistólica es muy alta.
+
+tD(x) = La presión diastólica es alta.
+
+t(x) = [ tS(x) ∧ tD(x) ] ∨ ts(x) ∨ tD(x) = ts(x) ∨ tD(x)
+
+Árbol básico de proposiciones:
+
+                     t
+                   -----
+                  |  ∨  |
+                   -----
+             _______| |_______
+            |                 |
+            ∨                 ∨
+         ------             ------
+        |  tS  |           |  tD  |
+         ------             ------   
