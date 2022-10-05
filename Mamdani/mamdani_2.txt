@@ -1,0 +1,16 @@
+2.1) y 2.2)
+
+rule_1 :
+
+Si la humedad del suelo es BAJA o la existencia de malezas en el lote es ABUNDANTE entonces las horas de
+riego indicadas son MUCHAS.
+
+rule_2 :
+
+Si la humedad del suelo es ALTA y la existencia de malezas en el lote es ESCASA entonces las horas de
+riego indicadas son POCAS.
+
+
+2.3)
+
+En la agregación parece haberse utilizado la operación MÁXIMO.
